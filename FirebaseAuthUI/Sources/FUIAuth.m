@@ -323,19 +323,12 @@ static NSString *const kFirebaseAuthUIFrameworkMarker = @"FirebaseUI-iOS";
                            error:(nullable NSError *)error
         presentingViewController:(FUIAuthBaseViewController *)presentingViewController
                         callback:(nullable FIRAuthResultCallback)callback {
-  BOOL isAuthPickerShown =
-      [presentingViewController isKindOfClass:[FUIAuthPickerViewController class]];
-  if (callback) {
-    callback(authResult.user, error);
-  }
-  // Hide Auth Picker Controller which was presented modally.
-  if (isAuthPickerShown && presentingViewController.presentingViewController) {
-    [presentingViewController dismissViewControllerAnimated:YES completion:^{
-      [self invokeResultCallbackWithAuthDataResult:authResult URL:nil error:error];
-    }];
-  } else {
+    BOOL isAuthPickerShown =
+    [presentingViewController isKindOfClass:[FUIAuthPickerViewController class]];
+    if (callback) {
+        callback(authResult.user, error);
+    }
     [self invokeResultCallbackWithAuthDataResult:authResult URL:nil error:error];
-  }
 }
 
 - (void)useEmulatorWithHost:(NSString *)host port:(NSInteger)port {
